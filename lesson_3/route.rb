@@ -1,9 +1,8 @@
 class Route
-  attr_reader :start, :stop, :all_stations
+  attr_reader :start, :stop, :all_stations, :station
 
   def initialize(start, stop)
-    @start = start
-    @stop = stop
+    @station = [start, stop]
     @way_stations = []
   end
 
@@ -16,7 +15,7 @@ class Route
   end
 
   def list_station
-    @all_stations = [@start, @way_stations, @stop].flatten
+    @all_stations = [@station.first, @way_stations, @station.last].flatten
     @all_stations.each do |station|
       puts station
     end

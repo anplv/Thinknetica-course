@@ -30,27 +30,26 @@ class Train
   end
 
   def take_route(route)
-    @current_station = route.start
+    @current_station = route.station.first
   end
 
-  # Мне не нравится, что идет повтор в 38, 43, 48 и 53 строках, но как это решить не придумал
+  def index_station(route)
+    route.all_stations.index(@current_station)
+  end
+
   def go_forward(route)
-    @index_station = route.all_stations.index(@current_station)
-    @current_station = route.all_stations[@index_station + 1]
+    @current_station = route.all_stations[index_station(route) + 1]
   end
 
   def go_back(route)
-    @index_station = route.all_stations.index(@current_station)
-    @current_station = route.all_stations[@index_station - 1]
+    @current_station = route.all_stations[index_station(route) - 1]
   end
 
   def next_station(route)
-    @index_station = route.all_stations.index(@current_station)
-    route.all_stations[@index_station + 1]
+    route.all_stations[index_station(route) + 1]
   end
 
   def prev_station(route)
-    @index_station = route.all_stations.index(@current_station)
-    route.all_stations[@index_station - 1]
+    route.all_stations[index_station(route) - 1]
   end
 end

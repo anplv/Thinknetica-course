@@ -3,35 +3,28 @@ class Station
 
   def initialize(name)
     @name = name
-    @trains = {}
-    @freight_trains = 0
-    @passenger_trains = 0
+    @trains = []
+    @trains_type = []
   end
 
   def add_train(train)
-    @trains[train.num.to_s] = train.type
-  end
-
-  def check_type(type)
-    if type == 'грузовой'
-      @freight_trains += 1
-    else
-      @passenger_trains += 1
-    end
+    @trains << train
+    @trains_type << train.type
   end
 
   def list_trains
-    @trains.each do |train, type|
-      check_type(type)
-      puts "#{type.capitalize} поезд номер #{train}"
+    @trains.each do |train|
+      puts "#{train.type.capitalize} поезд номер #{train.num}"
     end
   end
 
   def list_count_trains
-    puts "Сейчас на станции #{@freight_trains} грузовых поездов и #{@passenger_trains} пассажирских!"
+    @trains_type.uniq.each do |type|
+      puts "Поездов типа '#{type.capitalize}' - #{@trains_type.count(type)} шт"
+    end
   end
 
   def delete_train(train)
-    @trains.delete(train.num.to_s)
+    @trains.delete(train)
   end
 end
