@@ -1,5 +1,9 @@
 class Route
-  attr_reader :start, :stop, :station
+<<<<<<< HEAD
+  attr_reader :station
+=======
+  attr_reader :station
+>>>>>>> 9e508fe (Refactor class Route)
 
   def initialize(start, stop)
     @station = [start, stop]
