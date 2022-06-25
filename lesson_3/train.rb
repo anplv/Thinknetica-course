@@ -34,22 +34,22 @@ class Train
   end
 
   def index_station(route)
-    route.all_stations.index(@current_station)
+    route.station.index(@current_station)
   end
 
   def go_forward(route)
-    @current_station = route.all_stations[index_station(route) + 1]
+    @current_station = route.station[index_station(route) + 1]
   end
 
   def go_back(route)
-    @current_station = route.all_stations[index_station(route) - 1]
+    @current_station = route.station[index_station(route) - 1]
   end
 
   def next_station(route)
-    route.all_stations[index_station(route) + 1]
+    route.station[index_station(route) + 1]
   end
 
   def prev_station(route)
-    route.all_stations[index_station(route) - 1]
+    route.station[index_station(route) - 1]
   end
 end
