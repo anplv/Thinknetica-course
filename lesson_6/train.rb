@@ -1,3 +1,5 @@
+require_relative 'instance_counter'
+require_relative 'manufacturer'
 class Train
   include Manufacturer
   include InstanceCounter
@@ -14,11 +16,11 @@ class Train
 
   def initialize(num)
     @num = num
-    validate_num!
+    validate!
     @type = type
     @wagons = []
     @speed = 0
-    @current_station = 0
+    @current_station = nil
     @current_station_index = 0
     self.class.find(num)
     @@trains << num
@@ -64,21 +66,28 @@ class Train
     @current_station = @routes.first.stations[@current_station_index]
   end
 
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
+  end
+
   private
 
-  def validate_num!
+  def validate!
     raise 'Неверный формат номера поезда!' if num !~ TRAIN_NUM_FORMAT
   end
+end
 
-  def validate_delete_wagon!
-    raise 'Невозможно отцепить вагон. Нет прицепленных вагонов!' if @wagons.empty?
-  end
+def validate_delete_wagon!
+  raise 'Невозможно отцепить вагон. Нет прицепленных вагонов!' if @wagons.empty?
+end
 
-  def validate_next_station!
-    raise 'Это конечная станция!' if @current_station == @routes.first.stations[-1]
-  end
+def validate_next_station!
+  raise 'Это конечная станция!' if @current_station == @routes.first.stations[-1]
+end
 
-  def validate_prev_station!
-    raise 'Это начальная станция!' if @current_station == @routes.first.stations[0]
-  end
+def validate_prev_station!
+  raise 'Это начальная станция!' if @current_station == @routes.first.stations[0]
 end

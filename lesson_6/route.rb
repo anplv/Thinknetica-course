@@ -1,12 +1,13 @@
+require_relative 'instance_counter'
 class Route
   include InstanceCounter
 
-  attr_reader :stations
+  attr_reader :stations, :station_names
 
   def initialize(first, last)
     @stations = [first, last]
     @station_names = [first.name, last.name]
-    validate_route!
+    validate!
     register_instance
   end
 
@@ -23,13 +24,21 @@ class Route
   end
 
   def list_station
-    puts @station_name.uniq!
+    puts @station_names
+  end
+
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
   end
 
   private
 
-  def validate_route!
+  def validate!
     raise 'Необходимо добавить начальную и конечную остановку' if @stations.size < 2
+    raise 'Конечная остановка не может иметь такое же название как начальная!' if @stations.first == @stations.last
   end
 
   def validate_delete_station!(way_station)

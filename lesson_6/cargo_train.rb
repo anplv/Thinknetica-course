@@ -8,6 +8,6 @@ class CargoTrain < Train
   def initialize(num)
     super
     @type = 'грузовой'
-    validate_num!
+    validate!
   end
 end

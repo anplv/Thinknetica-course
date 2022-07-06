@@ -13,7 +13,7 @@ class Station
 
   def initialize(name)
     @name = name
-    validate_name!
+    validate!
     @trains = []
     @trains_type = []
     @@stations += 1
@@ -41,9 +41,16 @@ class Station
     @trains.delete(train)
   end
 
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
+  end
+
   private
 
-  def validate_name!
+  def validate!
     raise 'Необходимо ввести минимум 2 символа!' if name.empty? || name.length < 2
     raise 'Названии станции не может состоять только из цифр!' if name =~ STATION_NAME_FORMAT
   end

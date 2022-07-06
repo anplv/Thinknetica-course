@@ -4,12 +4,19 @@ class CargoWagon < Wagon
 
   def initialize(type)
     super(type)
-    validate_type!
+    validate!
+  end
+
+  def valid?
+    validate!
+    true
+  rescue StandardError
+    false
   end
 
   private
 
-  def validate_type!
+  def validate!
     raise 'Неверно указан тип вагона!' if type != 'грузовой'
   end
 end

@@ -138,7 +138,7 @@ class Controller
 
     train.take_route(route)
     route.stations.first.add_train(train)
-    puts "Для поезда '#{train.num}' назначен маршрут '#{route.stations.first}'!"
+    puts "Для поезда '#{train.num}' назначен маршрут '#{route.stations.first.name}'!"
   end
 
   def add_wagon
@@ -182,9 +182,15 @@ class Controller
 
     return unless check_user_input(train)
 
-    train.current_station.add_train(train)
-    train.next_station
-    puts "Поезд '#{train.num}' отправлен на станцию '#{train.current_station}'!"
+    current_station = train.current_station
+
+    if !current_station.nil?
+      current_station.add_train(train)
+      train.next_station
+      puts "Поезд '#{train.num}' отправлен на станцию '#{train.current_station.name}'!"
+    else
+      puts 'Маршрут не был назначен!'
+    end
   end
 
   def prev_station
@@ -194,9 +200,15 @@ class Controller
 
     return unless check_user_input(train)
 
-    train.current_station.delete_train(train)
-    train.prev_station
-    puts "Поезд '#{train.num}' отправлен на станцию '#{train.current_station}'!"
+    current_station = train.current_station
+
+    if !current_station.nil?
+      current_station.delete_train(train)
+      train.prev_station
+      puts "Поезд '#{train.num}' отправлен на станцию '#{train.current_station.name}'!"
+    else
+      puts 'Маршрут не был назначен!'
+    end
   end
 
   # Вспомогательные методы
@@ -208,7 +220,11 @@ class Controller
 
     return unless check_user_input(route)
 
-    route.list_station
+    if route.station_names.empty?
+      puts 'Станций нет!'
+    else
+      route.list_station
+    end
   end
 
   def list_trains
@@ -218,7 +234,11 @@ class Controller
 
     return unless check_user_input(station)
 
-    station.list_trains
+    if station.trains.empty?
+      puts 'Поездов нет!'
+    else
+      station.list_trains
+    end
   end
 
   def show_stations
