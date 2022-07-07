@@ -1,13 +1,8 @@
 require_relative 'wagon'
 class CargoWagon < Wagon
-  attr_reader :type, :volume
-
   def initialize(type, volume)
-    super(type)
+    super
     validate!
-    @volume = volume.to_f
-    @empty_volume = @volume
-    @occupied_volume = 0
   end
 
   def valid?
@@ -18,16 +13,7 @@ class CargoWagon < Wagon
   end
 
   def take_volume(volume)
-    @occupied_volume += volume.to_f
-    @empty_volume -= volume.to_f
-  end
-
-  def show_occupied_volume
-    @occupied_volume
-  end
-
-  def show_empty_volume
-    @empty_volume
+    @occupied_volume += volume if empty_space > volume
   end
 
   private

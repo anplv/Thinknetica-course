@@ -1,13 +1,8 @@
 require_relative 'wagon'
 class PassengerWagon < Wagon
-  attr_reader :type
-
-  def initialize(type, seats_number)
-    super(type)
+  def initialize(type, volume)
+    super
     validate!
-    @seats_number = seats_number.to_i
-    @empty_seats = @seats_number
-    @occupied_seats = 0
   end
 
   def valid?
@@ -18,16 +13,7 @@ class PassengerWagon < Wagon
   end
 
   def take_place
-    @empty_seats -= 1
-    @occupied_seats += 1
-  end
-
-  def show_occupied_seats
-    @occupied_seats
-  end
-
-  def show_empty_seats
-    @empty_seats
+    @occupied_volume += 1 if empty_space.positive?
   end
 
   private

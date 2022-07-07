@@ -279,7 +279,7 @@ class Controller
       wagon.take_place if user_wagon == wagon
     }
     train.check_wagons(&block)
-    puts "Место занято! Количество свободных мест - #{user_wagon.show_empty_seats} шт."
+    puts "Место занято! Количество свободных мест - #{user_wagon.empty_space} шт."
   end
 
   def take_volume
@@ -295,11 +295,11 @@ class Controller
     block = lambda { |wagon|
       if user_wagon == wagon
         puts 'Введите необходимый объём, м3:'
-        wagon.take_volume(gets.chomp)
+        wagon.take_volume(gets.chomp.to_f)
       end
     }
     train.check_wagons(&block)
-    puts "Место занято! Количество свободных мест - #{user_wagon.show_empty_volume} м3."
+    puts "Место занято! Количество свободных мест - #{user_wagon.empty_space} м3."
   end
 
   # Вспомогательные методы
@@ -415,10 +415,10 @@ class Controller
   def check_wagons(train)
     count = 0
     cargo = lambda { |wagon|
-      puts "Вагон номер #{count += 1}. Тип вагона - #{wagon.type}. Свободный объём вагона - #{wagon.show_empty_volume} м3. Занятый объём вагона - #{wagon.show_occupied_volume} м3"
+      puts "Вагон номер #{count += 1}. Тип вагона - #{wagon.type}. Свободный объём вагона - #{wagon.empty_space} м3. Занятый объём вагона - #{wagon.occupied_volume} м3"
     }
     passenger = lambda { |wagon|
-      puts "Вагон номер #{count += 1}. Тип вагона - #{wagon.type}. Количество свободных мест - #{wagon.show_empty_seats} шт. Количество занятых мест - #{wagon.show_occupied_seats} шт"
+      puts "Вагон номер #{count += 1}. Тип вагона - #{wagon.type}. Количество свободных мест - #{wagon.empty_space} шт. Количество занятых мест - #{wagon.occupied_volume} шт"
     }
 
     case train.type
