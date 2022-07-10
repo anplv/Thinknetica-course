@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Station
   include InstanceCounter
 
   attr_reader :name, :trains
 
-  STATION_NAME_FORMAT = /^[0-9]+$/
+  STATION_NAME_FORMAT = /^[0-9]+$/.freeze
 
   @@stations = 0
 

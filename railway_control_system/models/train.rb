@@ -1,5 +1,7 @@
-require_relative 'instance_counter'
-require_relative 'manufacturer'
+# frozen_string_literal: true
+
+require_relative '../modules/instance_counter'
+require_relative '../modules/manufacturer'
 class Train
   include Manufacturer
   include InstanceCounter
@@ -68,8 +70,8 @@ class Train
 
   def check_wagons(&block)
     if block_given?
-      @wagons.each do |wagon|
-        block.call(wagon)
+      @wagons.each_with_index do |wagon, index|
+        block.call(wagon, index)
       end
     else
       'Блок отстутствует!'

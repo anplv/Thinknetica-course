@@ -1,4 +1,6 @@
-require_relative 'instance_counter'
+# frozen_string_literal: true
+
+require_relative '../modules/instance_counter'
 class Route
   include InstanceCounter
 

@@ -1,12 +1,18 @@
-require_relative 'controller'
-require_relative 'route'
-require_relative 'station'
-require_relative 'passenger_train'
-require_relative 'cargo_train'
-require_relative 'passenger_wagon'
-require_relative 'cargo_wagon'
-require_relative 'instance_counter'
-require_relative 'manufacturer'
+# frozen_string_literal: true
+
+require_relative 'controllers/controller'
+require_relative 'models/route'
+require_relative 'models/station'
+require_relative 'models/passenger_train'
+require_relative 'models/cargo_train'
+require_relative 'models/passenger_wagon'
+require_relative 'models/cargo_wagon'
+require_relative 'modules/instance_counter'
+require_relative 'modules/manufacturer'
+require_relative 'modules/route_helper'
+require_relative 'modules/station_helper'
+require_relative 'modules/train_helper'
+require_relative 'modules/wagon_helper'
 
 controller = Controller.new
 
