@@ -2,10 +2,14 @@
 
 class Station
   include InstanceCounter
+  include Validation
 
   attr_reader :name, :trains
 
   STATION_NAME_FORMAT = /^[0-9]+$/.freeze
+
+  validate :name, :presence
+  validate :name, :format, STATION_NAME_FORMAT
 
   @@stations = 0
 

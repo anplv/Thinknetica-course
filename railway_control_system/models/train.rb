@@ -2,13 +2,24 @@
 
 require_relative '../modules/instance_counter'
 require_relative '../modules/manufacturer'
+require_relative '../modules/accessors'
+require_relative '../modules/validation'
 class Train
   include Manufacturer
   include InstanceCounter
+  include Accessors
+  include Validation
 
   attr_reader :num, :type, :wagons, :current_station, :routes
 
   TRAIN_NUM_FORMAT = /^[а-яёa-z0-9]{3}-?[а-яёa-z0-9]{2}$/i.freeze
+
+  attr_accessor_with_history :driver, :conductor
+  strong_attr_accessor :home_station, Station
+
+  validate :num, :presence
+  validate :num, :type
+  validate :num, :format, TRAIN_NUM_FORMAT
 
   @@trains = []
 

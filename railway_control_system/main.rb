@@ -13,6 +13,8 @@ require_relative 'modules/route_helper'
 require_relative 'modules/station_helper'
 require_relative 'modules/train_helper'
 require_relative 'modules/wagon_helper'
+require_relative 'modules/accessors'
+require_relative 'modules/validation'
 
 controller = Controller.new
 
